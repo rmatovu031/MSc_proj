@@ -1,33 +1,12 @@
-Loop to create IDs
-BED FILES
-for chr in {1..22}; do
-    dx find data --name "ukb22418_c${chr}_b0_v2.bed" --brief >> bed_file_ids.txt
-done
+Array-Genotype LiftOver
+UK Biobank SNP array genotype calls (bulk, genotype calls) for step 1 of REGENIE are mapped to GRCh37, while the WGS are mapped to GRCh38. We Therefore lift the coordinates of genotype calls over to GRCh38 using LiftOver before conducting the rest of the analysis, so that our genotype calls are consistent.
 
-BIM FILES
-for chr in {1..22}; do
-    dx find data --name "ukb22418_c${chr}_b0_v2.bim" --brief >> bim_file_ids.txt
-done
+The pipeline https://github.com/dnanexus-rnd/liftover_plink_beds/blob/main/README.md is used for the liftover.
 
-FAM FILES
-for chr in {1..22}; do
-    dx find data --name "ukb22418_c${chr}_b0_v2.fam" --brief >> fam_file_ids.txt
-done
+WDL input files;
+1. liftover_input.json
+2. target ref.
+3. liftover chain file
+4.
 
-ALTERNATIVELY
-
-we can add the chromosome name to conform the corresponding FILE-ID using;
-for chr in {1..22}; do
-    file_id=$(dx find data --name "ukb22418_c${chr}_b0_v2.bed" --brief)
-    echo "CHR${chr} - ID ${file_id}" >> bed_file_name.txt
-done
-
-for chr in {1..22}; do
-    file_id=$(dx find data --name "ukb22418_c${chr}_b0_v2.bim" --brief)
-    echo "CHR${chr} - ID ${file_id}" >> bim_file_name.txt
-done
-
-for chr in {1..22}; do
-    file_id=$(dx find data --name "ukb22418_c${chr}_b0_v2.fam" --brief)
-    echo "CHR${chr} - ID ${file_id}" >> fam_file_name.txt
-done
+GRCh38_full_analysis_set_plus_decoy_hla.fa under /Bulk/Exome sequences/Exome OQFE CRAM files/helper_files/ on RAP) 
